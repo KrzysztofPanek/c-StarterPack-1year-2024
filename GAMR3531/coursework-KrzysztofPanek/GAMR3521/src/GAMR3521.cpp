@@ -21,6 +21,8 @@ MainLayer::MainLayer(GLFWWindowImpl& win) : Layer(win)
 		{GL_FLOAT, 2}  // UV co-ords
 	};
 
+	Grid floorModel = Grid(50.f,50.f, 5.f);
+
 	VBOLayout floorLayout = {
 	{GL_FLOAT, 3}, // Position
 	{GL_FLOAT, 2}  // UV co-ords
@@ -46,6 +48,15 @@ MainLayer::MainLayer(GLFWWindowImpl& win) : Layer(win)
 	cube.rotation = glm::quat(glm::vec3(0.0f, 0.4f, 0.0f));
 	cube.recalc();
 	m_scene->m_actors.push_back(cube);
+
+
+	//floor
+	std::shared_ptr<Grid> grid = std::make_shared<Grid>();
+	std::vector<float> floorVertices = grid->getVertices();
+	std::vector<unsigned int> floorIndices = grid->getIndices();
+
+	//std::shared_ptr<VAO> floorVAO;
+	//floorVAO = std::make_shared<VAO>(floorModel.getIndices());
 
 	DirectionalLight dl;
 	dl.direction = glm::normalize(glm::vec3(1.f, -2.5f, -2.f));

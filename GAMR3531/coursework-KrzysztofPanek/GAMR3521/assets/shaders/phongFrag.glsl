@@ -88,7 +88,7 @@ vec3 getDirectionalLight()
 	vec3 reflectDir = reflect(dLight.direction, normal);  
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), 64);
 	vec3 specular = specularStrength * spec * dLight.colour;      
-	return ambient * (diffuse + specular);
+	return ambient + (diffuse + specular);
 }
 
 vec3 getPointLight(int idx)
