@@ -44,7 +44,7 @@ MainLayer::MainLayer(GLFWWindowImpl& win) : Layer(win)
 	cube.recalc();
 	m_scene->m_actors.push_back(cube);
 
-
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 	//floor
 	Grid floorModel = Grid(50.f, 50.f, 5.f);
 
@@ -58,9 +58,25 @@ MainLayer::MainLayer(GLFWWindowImpl& win) : Layer(win)
 	std::vector<unsigned int> floorIndices = grid->getIndices();
 
 	std::shared_ptr<VAO> floorVAO;
-	floorVAO = std::make_shared<VAO>(floorModel.getIndices());
+	floorVAO = std::make_shared<VAO>(floorIndices);
+	floorVAO->addVertexBuffer(floorVertices, floorLayout);
 
+	std::shared_ptr<Texture> floorTex;
+	//TO DO
+	//floorTex = std::make_shared<Texture>(floorModel.texturePaths[aiTextureType_DIFFUSE].string().c_str());
+	//ERROR ABOVE
 
+	//UNCOMMENT BELOW
+	//std::shared_ptr<Material> floorMaterial;
+	//floorMaterial = std::make_shared<Material>(phongShader, "u_model");
+	//floorMaterial->setValue("u_albedo", glm::vec3(1.f));
+	//floorMaterial->setValue("u_albedoMap", floorTex);
+
+	//Actor floor;
+	//floor.geometry = floorVAO;
+	//floor.material = floorMaterial;
+	//m_scene->m_actors.push_back(floor);
+	/////////////////////////////////////////////////////////////////////////////////////////////////
 	//dirLight
 	DirectionalLight dl;
 	dl.direction = glm::normalize(glm::vec3(1.f, -2.5f, -2.f));
