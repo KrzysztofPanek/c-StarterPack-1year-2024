@@ -21,12 +21,7 @@ MainLayer::MainLayer(GLFWWindowImpl& win) : Layer(win)
 		{GL_FLOAT, 2}  // UV co-ords
 	};
 
-	Grid floorModel = Grid(50.f,50.f, 5.f);
 
-	VBOLayout floorLayout = {
-	{GL_FLOAT, 3}, // Position
-	{GL_FLOAT, 2}  // UV co-ords
-	};
 
 	std::shared_ptr<VAO> cubeVAO;
 	cubeVAO = std::make_shared<VAO>(cubeModel.m_meshes[0].indices);
@@ -51,13 +46,22 @@ MainLayer::MainLayer(GLFWWindowImpl& win) : Layer(win)
 
 
 	//floor
+	Grid floorModel = Grid(50.f, 50.f, 5.f);
+
+	VBOLayout floorLayout = {
+	{GL_FLOAT, 3}, // Position
+	{GL_FLOAT, 2}  // UV co-ords
+	};
+
 	std::shared_ptr<Grid> grid = std::make_shared<Grid>();
 	std::vector<float> floorVertices = grid->getVertices();
 	std::vector<unsigned int> floorIndices = grid->getIndices();
 
-	//std::shared_ptr<VAO> floorVAO;
-	//floorVAO = std::make_shared<VAO>(floorModel.getIndices());
+	std::shared_ptr<VAO> floorVAO;
+	floorVAO = std::make_shared<VAO>(floorModel.getIndices());
 
+
+	//dirLight
 	DirectionalLight dl;
 	dl.direction = glm::normalize(glm::vec3(1.f, -2.5f, -2.f));
 	m_scene->m_directionalLights.push_back(dl);
